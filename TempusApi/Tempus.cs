@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
+using TempusApi.Models;
 using TempusApi.Models.Activity;
 using TempusApi.Models.DetailedMapList;
 using TempusApi.Models.PlayerStats;
@@ -142,6 +143,11 @@ namespace TempusApi
         public async Task<RunInfoModel> GetRunInfoAsync(int runId)
             => await GetResponseAsync<RunInfoModel>($"/records/id/{runId}/overview")
                 .ConfigureAwait(false);
+
+        public async Task<PersonalRecordsModel> GetPersonalRecordAsync(string mapName, string zoneType, int zoneIndex,
+            string playerId, int playerClass)
+            => await GetResponseAsync<PersonalRecordsModel>(
+                $"/maps/name/{mapName}/zones/typeindex/{zoneType}/{zoneIndex}/records/player/{playerId}/{playerClass}");
 
         public async Task<string> ParseMapNameAsync(string map)
         {
