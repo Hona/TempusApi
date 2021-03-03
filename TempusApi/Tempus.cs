@@ -169,7 +169,7 @@ namespace TempusApi
 
         private async Task UpdateMapListAsync()
         {
-            var maps = await GetDetailedMapListAsync()
+            var maps = await GetDetailedMapListAsync(false)
                 .ConfigureAwait(false);
             _mapList = maps.OrderBy(x => x.Name)
                 .ToList();
