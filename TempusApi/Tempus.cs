@@ -149,6 +149,9 @@ namespace TempusApi
             => await GetResponseAsync<PersonalRecordsModel>(
                 $"/maps/name/{mapName}/zones/typeindex/{zoneType}/{zoneIndex}/records/player/{playerId}/{playerClass}");
 
+        public async Task<Dictionary<string, SteamProfile>> GetSteamAvatarsAsync(params string[] steamIds)
+            => await GetResponseAsync<Dictionary<string, SteamProfile>>(
+                $"/steamavatars?steamids={string.Join(",", steamIds)}");
         public async Task<string> ParseMapNameAsync(string map)
         {
             if (MapNameList == null ||
