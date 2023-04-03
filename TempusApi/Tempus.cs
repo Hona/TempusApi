@@ -16,10 +16,25 @@ namespace TempusApi
 {
     public class Tempus
     {
-        private static readonly HttpClient HttpClient = new()
+        private TempusApiEndpoint _endpoint;
+        private string GetApiEndpointUri(TempusApiEndpoint endpoint) => endpoint switch
         {
-            BaseAddress = new Uri("https://tempus.xyz")
+            TempusApiEndpoint.Legacy => "https://tempus.xyz",
+            TempusApiEndpoint.V2 => "https://tempus2.xyz",
+            _ => throw new ArgumentOutOfRangeException(nameof(endpoint), endpoint, null)
         };
+
+        public Tempus(TempusApiEndpoint endpoint = TempusApiEndpoint.V2)
+        {
+            _endpoint = endpoint;
+            
+            _httpClient = new HttpClient
+            {
+                BaseAddress = new Uri(GetApiEndpointUri(_endpoint))
+            };
+        }
+
+        private readonly HttpClient _httpClient;
 
         private List<DetailedMapOverviewModel> _mapList;
 
@@ -42,15 +57,20 @@ namespace TempusApi
             return _mapList;
         }
 
-        private static string GetFullApiPath(string partial) => "/api" + partial;
+        private string GetFullApiPath(string partial) => _endpoint switch
+        {
+            TempusApiEndpoint.Legacy => "/api" + partial,
+            TempusApiEndpoint.V2 => "/api/v0" + partial,
+            _ => throw new ArgumentOutOfRangeException()
+        };
 
-        private static async Task<T> GetResponseAsync<T>(string request)
+        private async Task<T> GetResponseAsync<T>(string request)
         {
             var fullPath = GetFullApiPath(request);
 
             try
             {
-                var response = await HttpClient.GetAsync(fullPath)
+                var response = await _httpClient.GetAsync(fullPath)
                     .ConfigureAwait(false);
 
                 if (!response.IsSuccessStatusCode) throw new Exception("Couldn't get Tempus API request: " + fullPath);
