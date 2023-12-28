@@ -2,7 +2,7 @@
 {
     public class PlayerRankOverviewModel
     {
-        [JsonPropertyName("id")] public int Id { get; set; }
+        [JsonPropertyName("id")] public long Id { get; set; }
 
         [JsonPropertyName("steamid")] public string SteamId { get; set; }
 
@@ -10,6 +10,6 @@
 
         [JsonPropertyName("points")] public double Points { get; set; }
 
-        [JsonPropertyName("rank")] public int Rank { get; set; }
+        [JsonPropertyName("rank")] public long Rank { get; set; }
     }
 }

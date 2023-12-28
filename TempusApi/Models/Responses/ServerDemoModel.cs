@@ -2,7 +2,7 @@
 {
     public class ServerDemoModel
     {
-        [JsonPropertyName("id")] public int DemoId { get; set; }
+        [JsonPropertyName("id")] public long DemoId { get; set; }
 
         [JsonPropertyName("mapname")] public string MapName { get; set; }
 
@@ -16,9 +16,9 @@
 
         [JsonPropertyName("requested")] public bool Requested { get; set; }
 
-        [JsonPropertyName("uploader_id")] public int? UploaderId { get; set; }
+        [JsonPropertyName("uploader_id")] public long? UploaderId { get; set; }
 
-        [JsonPropertyName("server_id")] public int ServerId { get; set; }
+        [JsonPropertyName("server_id")] public long ServerId { get; set; }
 
         [JsonPropertyName("expired")] public bool Expired { get; set; }
 

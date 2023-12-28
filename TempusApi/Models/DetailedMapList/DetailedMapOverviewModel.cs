@@ -14,7 +14,7 @@ namespace TempusApi.Models.DetailedMapList
 
         [JsonPropertyName("authors")] public List<Author> Authors { get; set; }
 
-        [JsonPropertyName("id")] public int Id { get; set; }
+        [JsonPropertyName("id")] public long Id { get; set; }
 
         public char IntendedClass { get; set; }
     }

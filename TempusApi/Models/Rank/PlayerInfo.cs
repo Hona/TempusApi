@@ -10,7 +10,7 @@
 
         [JsonPropertyName("first_seen")] public double FirstSeen { get; set; }
 
-        [JsonPropertyName("id")] public int Id { get; set; }
+        [JsonPropertyName("id")] public long Id { get; set; }
 
         [JsonPropertyName("last_seen")] public double? LastSeen { get; set; }
 

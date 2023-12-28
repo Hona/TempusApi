@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using TempusApi.Enums;
 using TempusApi.Models;
 using TempusApi.Models.DetailedMapList;
 using TempusApi.Models.PlayerStats;
@@ -64,7 +65,7 @@ public interface ITempusClient
     /// <param name="start">The record to start at. The default is 1.</param>
     /// <param name="sort">The field to sort on the. Working value is "duration"</param>
     /// <param name="direction">The direction to sort. Working values are "ascending"</param>
-    Task<ZonedRecordsModel> GetTopZonedTimes(long mapId, string zoneType, int zoneIndex = 1, int? limit = null, int? start = null, string sort = null, string direction = null);
+    Task<ZonedRecordsModel> GetTopZonedTimes(long mapId, ZoneType zoneType, int zoneIndex = 1, int? limit = null, int? start = null, string sort = null, SortDirection? direction = null);
 
     /// <summary>
     /// /maps/id/{mapId}/zones/typeindex/{zoneType}/{zoneIndex}/records/player/{playerId}/{class}
@@ -75,7 +76,7 @@ public interface ITempusClient
     /// <param name="zoneIndex">The zone index, starting from 1. This number is referred to in names such as "bonus 1" and "course 3". For map zone records, it is always 1.</param>
     /// <param name="playerId">The player ID.</param>
     /// <param name="playerClass">The class. 3 is soldier, 4 is demoman.</param>
-    Task<PersonalRecordsModel> GetPersonalRecordAsync(long mapId, string zoneType, int zoneIndex, long playerId, int playerClass);
+    Task<PersonalRecordsModel> GetPersonalRecordAsync(long mapId, ZoneType zoneType, int zoneIndex, long playerId, Class playerClass);
     
     /// <summary>
     /// /maps/list
@@ -115,7 +116,7 @@ public interface ITempusClient
     /// <param name="start">The record to start at. The default is 1.</param>
     /// <param name="sort">The field to sort on the. Working value is "duration"</param>
     /// <param name="direction">The direction to sort. Working values are "ascending"</param>
-    Task<ZonedRecordsModel> GetTopZonedTimes(string mapName, string zoneType, int zoneIndex = 1, int? limit = null, int? start = null, string sort = null, string direction = null);
+    Task<ZonedRecordsModel> GetTopZonedTimes(string mapName, ZoneType zoneType, int zoneIndex = 1, int? limit = null, int? start = null, string sort = null, string direction = null);
     
     /// <summary>
     /// /maps/name/{mapName}/zones/typeindex/{zoneType}/{zoneIndex}/records/player/{playerId}/{class}
@@ -126,7 +127,7 @@ public interface ITempusClient
     /// <param name="zoneIndex">The zone index, starting from 1. This number is referred to in names such as "bonus 1" and "course 3". For map zone records, it is always 1.</param>
     /// <param name="playerId">The player ID.</param>
     /// <param name="playerClass">The class. 3 is soldier, 4 is demoman.</param>
-    Task<PersonalRecordsModel> GetPersonalRecordAsync(string mapName, string zoneType, int zoneIndex, string playerId, int playerClass);
+    Task<PersonalRecordsModel> GetPersonalRecordAsync(string mapName, ZoneType zoneType, int zoneIndex, string playerId, Class playerClass);
 
     #endregion
 
@@ -224,7 +225,7 @@ public interface ITempusClient
     /// <param name="start">The record to start at. The default is 1.</param>
     /// <param name="sort">The field to sort on the. Working value is "duration"</param>
     /// <param name="direction">The direction to sort. Working values are "ascending"</param>
-    Task<ZonedRecordsModel> GetTopZonedTimes(long zoneId, long? limit = null, int? start = null, string sort = null, string direction = null);
+    Task<ZonedRecordsModel> GetTopZonedTimes(long zoneId, long? limit = null, int? start = null, string sort = null, SortDirection? direction = null);
 
     #endregion
 }

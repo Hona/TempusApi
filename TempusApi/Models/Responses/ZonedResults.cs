@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TempusApi.Enums;
 using TempusApi.Models.Activity;
 
 namespace TempusApi.Models.Responses
@@ -10,13 +11,13 @@ namespace TempusApi.Models.Responses
 
         [JsonPropertyName("demoman")] public List<RecordInfoShort> DemomanRuns { get; set; }
 
-        public List<RecordInfoShort> GetClassRuns(int id)
+        public List<RecordInfoShort> GetClassRuns(Class @class)
         {
-            return id switch
+            return @class switch
             {
-                3 => SoldierRuns,
-                4 => DemomanRuns,
-                _ => throw new ArgumentOutOfRangeException("No such class id exists")
+                Class.Soldier => SoldierRuns,
+                Class.Demoman => DemomanRuns,
+                _ => throw new ArgumentOutOfRangeException(nameof(@class), "No such class id exists")
             };
         }
     }
