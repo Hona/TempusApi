@@ -103,7 +103,7 @@ public interface ITempusClient
     /// Get world record run data for a map
     /// </summary>
     /// <param name="mapName">The map name. A working example value is "jump_beef".</param>
-    Task<object> GetWorldRecordsDataAsync(string mapName);
+    Task<WorldRecordsData> GetWorldRecordsDataAsync(string mapName);
     
     /// <summary>
     /// /maps/name/{mapName}/zones/typeindex/{zoneType}/{zoneIndex}/records/list

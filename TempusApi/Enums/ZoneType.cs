@@ -5,5 +5,6 @@ public enum ZoneType
     Map,
     Course,
     Bonus,
-    Trick
+    Trick,
+    Checkpoint
 }
