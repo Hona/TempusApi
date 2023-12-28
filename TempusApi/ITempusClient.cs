@@ -8,7 +8,7 @@ using TempusApi.Models.Responses;
 
 namespace TempusApi;
 
-public interface ITempus
+public interface ITempusClient
 {
     #region Activity
     
