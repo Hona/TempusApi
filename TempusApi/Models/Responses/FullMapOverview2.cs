@@ -39,7 +39,7 @@ public class ZoneInfo
 
     [JsonPropertyName("zoneindex")] public int Zoneindex { get; set; }
 
-    [JsonPropertyName("custom_name")] public object CustomName { get; set; }
+    [JsonPropertyName("custom_name")] public string CustomName { get; set; }
 
     [JsonPropertyName("id")] public long Id { get; set; }
 

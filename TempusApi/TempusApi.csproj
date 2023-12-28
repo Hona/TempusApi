@@ -5,11 +5,14 @@
         <Authors>Luke Parker</Authors>
         <Company />
         <Description>Tempus.xyz API wrapper library</Description>
-        <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageProjectUrl>https://github.com/Hona/TempusApi</PackageProjectUrl>
         <RepositoryUrl>https://github.com/Hona/TempusApi</RepositoryUrl>
-        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-        <Version>2.0.2</Version>
+        <Version>3.0.6</Version>
+        <IncludeContentFilesProjectOutputGroup>true</IncludeContentFilesProjectOutputGroup>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -17,9 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="../LICENSE">
-        <Pack>True</Pack>
-      </None>
+        <None Include="LICENSE" Pack="true" PackagePath="" />
     </ItemGroup>
 
 </Project>

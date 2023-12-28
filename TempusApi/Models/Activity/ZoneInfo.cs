@@ -10,7 +10,7 @@ namespace TempusApi.Models.Activity
 
         [JsonPropertyName("id")] public long Id { get; set; }
 
-        [JsonPropertyName("custom_name")] public object CustomName { get; set; }
+        [JsonPropertyName("custom_name")] public string CustomName { get; set; }
 
         [JsonPropertyName("zoneindex")] public int Zoneindex { get; set; }
     }
