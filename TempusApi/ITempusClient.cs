@@ -6,6 +6,7 @@ using TempusApi.Models.DetailedMapList;
 using TempusApi.Models.PlayerStats;
 using TempusApi.Models.Rank;
 using TempusApi.Models.Responses;
+using PlayerInfo = TempusApi.Models.Responses.PlayerInfo;
 
 namespace TempusApi;
 
@@ -145,7 +146,7 @@ public interface ITempusClient
     /// Get basic player information
     /// </summary>
     /// <param name="playerId">The player ID.</param>
-    Task<object> GetPlayerInfoAsync(long playerId);
+    Task<PlayerInfo> GetPlayerInfoAsync(long playerId);
 
     /// <summary>
     /// /players/id/{playerId}/stats
