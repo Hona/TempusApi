@@ -1,7 +1,4 @@
-﻿using System.Data.Common;
-using System.Text.Json.Serialization;
-
-namespace TempusApi.Models
+﻿namespace TempusApi.Models
 {
     public class PersonalRecordsModel
     {

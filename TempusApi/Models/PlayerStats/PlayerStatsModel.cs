@@ -1,26 +1,25 @@
-﻿using Newtonsoft.Json;
-using TempusApi.Models.Rank;
+﻿using TempusApi.Models.Rank;
 
 namespace TempusApi.Models.PlayerStats
 {
     public class PlayerStatsModel
     {
-        [JsonProperty(PropertyName = "player_info")] public PlayerInfo PlayerInfo { get; set; }
+        [JsonPropertyName("player_info")] public PlayerInfo PlayerInfo { get; set; }
 
-        [JsonProperty(PropertyName = "class_rank_info")] public ClassRankInfo ClassRankInfo { get; set; }
+        [JsonPropertyName("class_rank_info")] public ClassRankInfo ClassRankInfo { get; set; }
 
-        [JsonProperty(PropertyName = "rank_info")] public RankInfo RankInfo { get; set; }
+        [JsonPropertyName("rank_info")] public RankInfo RankInfo { get; set; }
 
-        [JsonProperty(PropertyName = "country_class_rank_info")] public ClassRankInfo CountryClassRankInfo { get; set; }
+        [JsonPropertyName("country_class_rank_info")] public ClassRankInfo CountryClassRankInfo { get; set; }
 
-        [JsonProperty(PropertyName = "country_rank_info")] public BaseRank CountryOverallRankInfo { get; set; }
+        [JsonPropertyName("country_rank_info")] public BaseRank CountryOverallRankInfo { get; set; }
 
-        [JsonProperty(PropertyName = "top_stats")] public ZonedStats TopTimeStats { get; set; }
+        [JsonPropertyName("top_stats")] public ZonedStats TopTimeStats { get; set; }
 
-        [JsonProperty(PropertyName = "pr_stats")] public ZonedStats PersonalRecordStats { get; set; }
+        [JsonPropertyName("pr_stats")] public ZonedStats PersonalRecordStats { get; set; }
 
-        [JsonProperty(PropertyName = "wr_stats")] public ZonedStats WorldRecordStats { get; set; }
+        [JsonPropertyName("wr_stats")] public ZonedStats WorldRecordStats { get; set; }
 
-        [JsonProperty(PropertyName = "zone_count")] public ZonesCount ZonesCount { get; set; }
+        [JsonPropertyName("zone_count")] public ZonesCount ZonesCount { get; set; }
     }
 }

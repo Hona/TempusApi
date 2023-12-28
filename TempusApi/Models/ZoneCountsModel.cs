@@ -1,19 +1,17 @@
-﻿using Newtonsoft.Json;
-
-namespace TempusApi.Models
+﻿namespace TempusApi.Models
 {
     public class ZoneCountsModel
     {
-        [JsonProperty(PropertyName = "map")] public int Map { get; set; }
+        [JsonPropertyName("map")] public int Map { get; set; }
 
-        [JsonProperty(PropertyName = "linear")] public int Linear { get; set; }
+        [JsonPropertyName("linear")] public int Linear { get; set; }
 
-        [JsonProperty(PropertyName = "bonus")] public int Bonus { get; set; }
+        [JsonPropertyName("bonus")] public int Bonus { get; set; }
 
-        [JsonProperty(PropertyName = "map_end")] public int MapEnd { get; set; }
+        [JsonPropertyName("map_end")] public int MapEnd { get; set; }
 
-        [JsonProperty(PropertyName = "checkpoint")] public int Checkpoint { get; set; }
+        [JsonPropertyName("checkpoint")] public int Checkpoint { get; set; }
 
-        [JsonProperty(PropertyName = "bonus_end")] public int BonusEnd { get; set; }
+        [JsonPropertyName("bonus_end")] public int BonusEnd { get; set; }
     }
 }

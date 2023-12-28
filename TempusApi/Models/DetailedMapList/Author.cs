@@ -1,13 +1,11 @@
-﻿using Newtonsoft.Json;
-
-namespace TempusApi.Models.DetailedMapList
+﻿namespace TempusApi.Models.DetailedMapList
 {
     public class Author
     {
-        [JsonProperty(PropertyName = "map_id")] public int MapId { get; set; }
+        [JsonPropertyName("map_id")] public int MapId { get; set; }
 
-        [JsonProperty(PropertyName = "name")] public string Name { get; set; }
+        [JsonPropertyName("name")] public string Name { get; set; }
 
-        [JsonProperty(PropertyName = "id")] public int Id { get; set; }
+        [JsonPropertyName("id")] public int Id { get; set; }
     }
 }

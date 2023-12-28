@@ -1,29 +1,27 @@
-﻿using Newtonsoft.Json;
-
-namespace TempusApi.Models.Activity
+﻿namespace TempusApi.Models.Activity
 {
     public class RecordInfo
     {
-        [JsonProperty(PropertyName = "demo_id")] public int DemoId { get; set; }
+        [JsonPropertyName("demo_id")] public int DemoId { get; set; }
 
-        [JsonProperty(PropertyName = "server_id")] public int ServerId { get; set; }
+        [JsonPropertyName("server_id")] public int ServerId { get; set; }
 
-        [JsonProperty(PropertyName = "user_id")] public int UserId { get; set; }
+        [JsonPropertyName("user_id")] public int UserId { get; set; }
 
-        [JsonProperty(PropertyName = "zone_id")] public int ZoneId { get; set; }
+        [JsonPropertyName("zone_id")] public int ZoneId { get; set; }
 
-        [JsonProperty(PropertyName = "demo_start_tick")] public int DemoStartTick { get; set; }
+        [JsonPropertyName("demo_start_tick")] public int DemoStartTick { get; set; }
 
-        [JsonProperty(PropertyName = "rank")] public int Rank { get; set; }
+        [JsonPropertyName("rank")] public int Rank { get; set; }
 
-        [JsonProperty(PropertyName = "class")] public int Class { get; set; }
+        [JsonPropertyName("class")] public int Class { get; set; }
 
-        [JsonProperty(PropertyName = "date")] public double Date { get; set; }
+        [JsonPropertyName("date")] public double Date { get; set; }
 
-        [JsonProperty(PropertyName = "duration")] public double Duration { get; set; }
+        [JsonPropertyName("duration")] public double Duration { get; set; }
 
-        [JsonProperty(PropertyName = "demo_end_tick")] public int DemoEndTick { get; set; }
+        [JsonPropertyName("demo_end_tick")] public int DemoEndTick { get; set; }
 
-        [JsonProperty(PropertyName = "id")] public int Id { get; set; }
+        [JsonPropertyName("id")] public int Id { get; set; }
     }
 }

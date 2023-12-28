@@ -1,21 +1,19 @@
-﻿using Newtonsoft.Json;
-
-namespace TempusApi.Models.Rank
+﻿namespace TempusApi.Models.Rank
 {
     public class PlayerInfo
     {
-        [JsonProperty(PropertyName = "steamid")] public string Steamid { get; set; }
+        [JsonPropertyName("steamid")] public string Steamid { get; set; }
 
-        [JsonProperty(PropertyName = "name")] public string Name { get; set; }
+        [JsonPropertyName("name")] public string Name { get; set; }
 
-        [JsonProperty(PropertyName = "country")] public object Country { get; set; }
+        [JsonPropertyName("country")] public object Country { get; set; }
 
-        [JsonProperty(PropertyName = "first_seen")] public double FirstSeen { get; set; }
+        [JsonPropertyName("first_seen")] public double FirstSeen { get; set; }
 
-        [JsonProperty(PropertyName = "id")] public int Id { get; set; }
+        [JsonPropertyName("id")] public int Id { get; set; }
 
-        [JsonProperty(PropertyName = "last_seen")] public double? LastSeen { get; set; }
+        [JsonPropertyName("last_seen")] public double? LastSeen { get; set; }
 
-        [JsonProperty(PropertyName = "country_code")] public string CountryCode { get; set; }
+        [JsonPropertyName("country_code")] public string CountryCode { get; set; }
     }
 }

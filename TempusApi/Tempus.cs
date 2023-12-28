@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
-using Newtonsoft.Json;
 using TempusApi.Models;
 using TempusApi.Models.Activity;
 using TempusApi.Models.DetailedMapList;

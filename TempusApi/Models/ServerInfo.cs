@@ -1,21 +1,19 @@
-﻿using Newtonsoft.Json;
-
-namespace TempusApi.Models
+﻿namespace TempusApi.Models
 {
     public class ServerInfo
     {
-        [JsonProperty(PropertyName = "hidden")] public bool Hidden { get; set; }
+        [JsonPropertyName("hidden")] public bool Hidden { get; set; }
 
-        [JsonProperty(PropertyName = "addr")] public string Addr { get; set; }
+        [JsonPropertyName("addr")] public string Addr { get; set; }
 
-        [JsonProperty(PropertyName = "country")] public string Country { get; set; }
+        [JsonPropertyName("country")] public string Country { get; set; }
 
-        [JsonProperty(PropertyName = "id")] public int Id { get; set; }
+        [JsonPropertyName("id")] public int Id { get; set; }
 
-        [JsonProperty(PropertyName = "shortname")] public string Shortname { get; set; }
+        [JsonPropertyName("shortname")] public string Shortname { get; set; }
 
-        [JsonProperty(PropertyName = "port")] public int Port { get; set; }
+        [JsonPropertyName("port")] public int Port { get; set; }
 
-        [JsonProperty(PropertyName = "name")] public string Name { get; set; }
+        [JsonPropertyName("name")] public string Name { get; set; }
     }
 }
