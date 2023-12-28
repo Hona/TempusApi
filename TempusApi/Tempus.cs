@@ -40,6 +40,8 @@ namespace TempusApi
 
         private List<string> MapNameList { get; set; }
 
+        private async Task<List<DetailedMapOverviewModel>> GetDetailedMapListAsync()
+            => await InternalGetDetailedMapListAsync();
         public async Task<List<DetailedMapOverviewModel>> GetDetailedMapListAsync(bool allowCached = true)
         {
             if (!allowCached)
@@ -87,7 +89,7 @@ namespace TempusApi
             }
         }
 
-        public async Task<MapFullOverviewModel> GetFullMapOverViewAsync(string map)
+        public async Task<MapFullOverviewModel> GetFullMapOverviewAsync(string map)
         {
             if (map == null) return null;
 
@@ -119,7 +121,7 @@ namespace TempusApi
             => await GetResponseAsync<PlayerMapSearchResult>($"/search/playersAndMaps/{HttpUtility.UrlEncode(query)}")
                 .ConfigureAwait(false);
 
-        public async Task<List<ServerStatusModel>> GetServerStatusAsync()
+        public async Task<List<ServerStatusModel>> GetServersStatusesAsync()
             => await GetResponseAsync<List<ServerStatusModel>>("/servers/statusList")
                 .ConfigureAwait(false);
 
@@ -143,15 +145,15 @@ namespace TempusApi
             => await GetResponseAsync<RanksOverviewModel>("/ranks/class/3")
                 .ConfigureAwait(false);
 
-        public async Task<Rank> GetUserRankAsync(string id)
-            => await GetResponseAsync<Rank>($"/players/id/{id}/rank")
+        public async Task<Rank> GetPlayerRankAsync(long playerId)
+            => await GetResponseAsync<Rank>($"/players/id/{playerId}/rank")
                 .ConfigureAwait(false);
 
-        public async Task<PlayerStatsModel> GetUserStatsAsync(string id)
-            => await GetResponseAsync<PlayerStatsModel>($"/players/id/{id}/stats")
+        public async Task<PlayerStatsModel> GetPlayerStatsAsync(long playerId)
+            => await GetResponseAsync<PlayerStatsModel>($"/players/id/{playerId}/stats")
                 .ConfigureAwait(false);
 
-        public async Task<List<ServerDemoModel>> GetServerDemosAsync(int serverId)
+        public async Task<List<ServerDemoModel>> GetServerDemosAsync(long serverId)
             => await GetResponseAsync<List<ServerDemoModel>>($"/servers/{serverId}/demos")
                 .ConfigureAwait(false);
 
