@@ -52,7 +52,7 @@ public interface ITempusClient
     /// Get more information on a map by its ID
     /// </summary>
     /// <param name="mapId">The map ID. A working example value is 1.</param>
-    Task<object> GetFullMapOverview2Async(long mapId);
+    Task<FullMapOverview2> GetFullMapOverview2Async(long mapId);
     
     /// <summary>
     /// /maps/id/{mapId}/zones/typeindex/{zoneType}/{zoneIndex}/records/list
@@ -96,7 +96,7 @@ public interface ITempusClient
     /// Get more information on a map by its ID
     /// </summary>
     /// <param name="mapName">The map's name. A working example value is "jump_beef".</param>
-    Task<object> GetFullMapOverview2Async(string mapName);
+    Task<FullMapOverview2> GetFullMapOverview2Async(string mapName);
     
     /// <summary>
     /// /maps/name/{mapName}/wrs
