@@ -118,7 +118,7 @@ public interface ITempusClient
     /// <param name="start">The record to start at. The default is 1.</param>
     /// <param name="sort">The field to sort on the. Working value is "duration"</param>
     /// <param name="direction">The direction to sort. Working values are "ascending"</param>
-    Task<ZonedRecordsModel> GetTopZonedTimes(string mapName, ZoneType zoneType, int zoneIndex = 1, int? limit = null, int? start = null, string sort = null, string direction = null, CancellationToken cancellationToken = default);
+    Task<ZonedRecordsModel> GetTopZonedTimes(string mapName, ZoneType zoneType, int zoneIndex = 1, int? limit = null, int? start = null, string sort = null, SortDirection? direction = null, CancellationToken cancellationToken = default);
     
     /// <summary>
     /// /maps/name/{mapName}/zones/typeindex/{zoneType}/{zoneIndex}/records/player/{playerId}/{class}
@@ -166,7 +166,7 @@ public interface ITempusClient
     /// </summary>
     /// <param name="class">The class. 3 is soldier, 4 is demoman.</param>
     /// <param name="start">Which rank to start the 50 from, default is 1</param>
-    Task<RanksOverviewModel> GetRanksAsync(int @class, int? start = null, CancellationToken cancellationToken = default);
+    Task<RanksOverviewModel> GetRanksAsync(Class @class, int? start = null, CancellationToken cancellationToken = default);
     
     /// <summary>
     /// /ranks/overall
