@@ -1,13 +1,11 @@
-using Newtonsoft.Json;
-
 namespace TempusApi.Models.Activity
 {
     public class PlayerInfo
     {
-        [JsonProperty(PropertyName = "steamid")] public string Steamid { get; set; }
+        [JsonPropertyName("steamid")] public string Steamid { get; set; }
 
-        [JsonProperty(PropertyName = "id")] public int Id { get; set; }
+        [JsonPropertyName("id")] public long Id { get; set; }
 
-        [JsonProperty(PropertyName = "name")] public string Name { get; set; }
+        [JsonPropertyName("name")] public string Name { get; set; }
     }
 }

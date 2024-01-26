@@ -1,29 +1,27 @@
-﻿using Newtonsoft.Json;
-
-namespace TempusApi.Models.PlayerStats
+﻿namespace TempusApi.Models.PlayerStats
 {
     public class ZonesCount
     {
-        [JsonProperty(PropertyName = "checkpoint")] public ZoneCount Checkpoint { get; set; }
+        [JsonPropertyName("checkpoint")] public ZoneCount Checkpoint { get; set; }
 
-        [JsonProperty(PropertyName = "course_end")] public ZoneCount CourseEnd { get; set; }
+        [JsonPropertyName("course_end")] public ZoneCount CourseEnd { get; set; }
 
-        [JsonProperty(PropertyName = "linear")] public ZoneCount Linear { get; set; }
+        [JsonPropertyName("linear")] public ZoneCount Linear { get; set; }
 
-        [JsonProperty(PropertyName = "map")] public ZoneCount Map { get; set; }
+        [JsonPropertyName("map")] public ZoneCount Map { get; set; }
 
-        [JsonProperty(PropertyName = "bonus")] public ZoneCount Bonus { get; set; }
+        [JsonPropertyName("bonus")] public ZoneCount Bonus { get; set; }
 
-        [JsonProperty(PropertyName = "misc")] public ZoneCount Misc { get; set; }
+        [JsonPropertyName("misc")] public ZoneCount Misc { get; set; }
 
-        [JsonProperty(PropertyName = "map_end")] public ZoneCount MapEnd { get; set; }
+        [JsonPropertyName("map_end")] public ZoneCount MapEnd { get; set; }
 
-        [JsonProperty(PropertyName = "trick")] public ZoneCount Trick { get; set; }
+        [JsonPropertyName("trick")] public ZoneCount Trick { get; set; }
 
-        [JsonProperty(PropertyName = "course")] public ZoneCount Course { get; set; }
+        [JsonPropertyName("course")] public ZoneCount Course { get; set; }
 
-        [JsonProperty(PropertyName = "bonus_end")] public ZoneCount BonusEnd { get; set; }
+        [JsonPropertyName("bonus_end")] public ZoneCount BonusEnd { get; set; }
 
-        [JsonProperty(PropertyName = "special")] public ZoneCount Special { get; set; }
+        [JsonPropertyName("special")] public ZoneCount Special { get; set; }
     }
 }

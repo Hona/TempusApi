@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using TempusApi.Enums;
 using TempusApi.Models.Activity;
 
 namespace TempusApi.Models.Responses
 {
     public class ZonedResults
     {
-        [JsonProperty(PropertyName = "soldier")] public List<RecordInfoShort> SoldierRuns { get; set; }
+        [JsonPropertyName("soldier")] public List<RecordInfoShort> SoldierRuns { get; set; }
 
-        [JsonProperty(PropertyName = "demoman")] public List<RecordInfoShort> DemomanRuns { get; set; }
+        [JsonPropertyName("demoman")] public List<RecordInfoShort> DemomanRuns { get; set; }
 
-        public List<RecordInfoShort> GetClassRuns(int id)
+        public List<RecordInfoShort> GetClassRuns(Class @class)
         {
-            return id switch
+            return @class switch
             {
-                3 => SoldierRuns,
-                4 => DemomanRuns,
-                _ => throw new ArgumentOutOfRangeException("No such class id exists")
+                Class.Soldier => SoldierRuns,
+                Class.Demoman => DemomanRuns,
+                _ => throw new ArgumentOutOfRangeException(nameof(@class), "No such class id exists")
             };
         }
     }

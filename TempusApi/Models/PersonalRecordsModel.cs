@@ -1,5 +1,4 @@
-﻿using System.Data.Common;
-using System.Text.Json.Serialization;
+﻿using TempusApi.Enums;
 
 namespace TempusApi.Models
 {
@@ -21,9 +20,9 @@ namespace TempusApi.Models
     public class ZoneInfo
     {
         [JsonPropertyName("id")]
-        public int Id { get; set; }
+        public long Id { get; set; }
         [JsonPropertyName("map_id")]
-        public int MapId { get; set; }
+        public long MapId { get; set; }
         [JsonPropertyName("type")]
         public string Type { get; set; }
         [JsonPropertyName("zoneindex")]
@@ -52,13 +51,13 @@ namespace TempusApi.Models
     public class Result
     {
         [JsonPropertyName("id")]
-        public int Id { get; set; }
+        public long Id { get; set; }
         [JsonPropertyName("zone_id")]
-        public int ZoneId { get; set; }
+        public long ZoneId { get; set; }
         [JsonPropertyName("duration")]
         public double Duration { get; set; }
         [JsonPropertyName("class")]
-        public int Class { get; set; }
+        public Class Class { get; set; }
         [JsonPropertyName("date")]
         public double Date { get; set; }
         [JsonPropertyName("demo_start_tick")]
@@ -66,19 +65,19 @@ namespace TempusApi.Models
         [JsonPropertyName("demo_end_tick")]
         public ulong DemoEndTick { get; set; }
         [JsonPropertyName("user_id")]
-        public int UserId { get; set; }
+        public long UserId { get; set; }
         [JsonPropertyName("name")]
         public string Name { get; set; }
         [JsonPropertyName("steamid")]
         public string SteamId { get; set; }
         [JsonPropertyName("rank")]
-        public int Rank { get; set; }
+        public long Rank { get; set; }
         [JsonPropertyName("demo_id")]
-        public int DemoId { get; set; }
+        public long DemoId { get; set; }
         [JsonPropertyName("demo_url")]
         public string DemoUrl { get; set; }
         [JsonPropertyName("demo_server_id")]
-        public int DemoServerId { get; set; }
+        public long DemoServerId { get; set; }
         [JsonPropertyName("demo_server_name")]
         public string DemoServerName { get; set; }
     }

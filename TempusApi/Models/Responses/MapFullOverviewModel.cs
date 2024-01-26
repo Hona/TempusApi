@@ -1,33 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using TempusApi.Enums;
 using TempusApi.Models.DetailedMapList;
 
 namespace TempusApi.Models.Responses
 {
     public class MapFullOverviewModel
     {
-        [JsonProperty(PropertyName = "videos")] public VideosModel Videos { get; set; }
+        [JsonPropertyName("videos")] public VideosModel Videos { get; set; }
 
-        [JsonProperty(PropertyName = "tier_info")] public TierInfoModel TierInfo { get; set; }
+        [JsonPropertyName("tier_info")] public TierInfoModel TierInfo { get; set; }
 
-        [JsonProperty(PropertyName = "demoman_runs")] public List<RecordModel> DemomanRuns { get; set; }
+        [JsonPropertyName("demoman_runs")] public List<RecordModel> DemomanRuns { get; set; }
 
-        [JsonProperty(PropertyName = "authors")] public List<AuthorModel> Authors { get; set; }
+        [JsonPropertyName("authors")] public List<AuthorModel> Authors { get; set; }
 
-        [JsonProperty(PropertyName = "map_info")] public MapInfoModel MapInfo { get; set; }
+        [JsonPropertyName("map_info")] public MapInfoModel MapInfo { get; set; }
 
-        [JsonProperty(PropertyName = "soldier_runs")] public List<RecordModel> SoldierRuns { get; set; }
+        [JsonPropertyName("soldier_runs")] public List<RecordModel> SoldierRuns { get; set; }
 
-        [JsonProperty(PropertyName = "zone_counts")] public ZoneCounts ZoneCounts { get; set; }
+        [JsonPropertyName("zone_counts")] public ZoneCounts ZoneCounts { get; set; }
 
-        public List<RecordModel> GetClassRuns(int id)
+        public List<RecordModel> GetClassRuns(Class @class)
         {
-            return id switch
+            return @class switch
             {
-                3 => SoldierRuns,
-                4 => DemomanRuns,
-                _ => throw new ArgumentOutOfRangeException("No such class id exists")
+                Class.Soldier => SoldierRuns,
+                Class.Demoman => DemomanRuns,
+                _ => throw new ArgumentOutOfRangeException(nameof(@class), "No such class id exists")
             };
         }
     }

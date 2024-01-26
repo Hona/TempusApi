@@ -1,15 +1,13 @@
-using Newtonsoft.Json;
-
 namespace TempusApi.Models.Rank
 {
     public class BaseRank
     {
-        [JsonProperty(PropertyName = "total_ranked")] public int TotalRanked { get; set; }
+        [JsonPropertyName("total_ranked")] public long TotalRanked { get; set; }
 
-        [JsonProperty(PropertyName = "points")] public double Points { get; set; }
+        [JsonPropertyName("points")] public double Points { get; set; }
 
-        [JsonProperty(PropertyName = "rank")] public int Rank { get; set; }
+        [JsonPropertyName("rank")] public long Rank { get; set; }
 
-        [JsonProperty(PropertyName = "title")] public string Title { get; set; }
+        [JsonPropertyName("title")] public string Title { get; set; }
     }
 }

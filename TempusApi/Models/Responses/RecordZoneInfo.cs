@@ -1,23 +1,21 @@
-﻿using Newtonsoft.Json;
-
-namespace TempusApi.Models.Responses
+﻿namespace TempusApi.Models.Responses
 {
     public class RecordZoneInfo
     {
-        [JsonProperty(PropertyName = "id")] public int Id { get; set; }
+        [JsonPropertyName("id")] public long Id { get; set; }
 
-        [JsonProperty(PropertyName = "map_id")] public int MapId { get; set; }
+        [JsonPropertyName("map_id")] public long MapId { get; set; }
 
-        [JsonProperty(PropertyName = "type")] public string Type { get; set; }
+        [JsonPropertyName("type")] public string Type { get; set; }
 
-        [JsonProperty(PropertyName = "zoneindex")] public int ZoneIndex { get; set; }
+        [JsonPropertyName("zoneindex")] public int ZoneIndex { get; set; }
 
-        [JsonProperty(PropertyName = "index")]
+        [JsonPropertyName("index")]
         private int Index
         {
             set => ZoneIndex = value;
         }
 
-        [JsonProperty(PropertyName = "custom_name")] public string CustomName { get; set; }
+        [JsonPropertyName("custom_name")] public string CustomName { get; set; }
     }
 }

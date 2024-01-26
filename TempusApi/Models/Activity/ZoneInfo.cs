@@ -1,17 +1,17 @@
-using Newtonsoft.Json;
+using TempusApi.Enums;
 
 namespace TempusApi.Models.Activity
 {
     public class ZoneInfo
     {
-        [JsonProperty(PropertyName = "type")] public string Type { get; set; }
+        [JsonPropertyName("type")] public ZoneType Type { get; set; }
 
-        [JsonProperty(PropertyName = "map_id")] public int MapId { get; set; }
+        [JsonPropertyName("map_id")] public long MapId { get; set; }
 
-        [JsonProperty(PropertyName = "id")] public int Id { get; set; }
+        [JsonPropertyName("id")] public long Id { get; set; }
 
-        [JsonProperty(PropertyName = "custom_name")] public object CustomName { get; set; }
+        [JsonPropertyName("custom_name")] public string CustomName { get; set; }
 
-        [JsonProperty(PropertyName = "zoneindex")] public int Zoneindex { get; set; }
+        [JsonPropertyName("zoneindex")] public int Zoneindex { get; set; }
     }
 }

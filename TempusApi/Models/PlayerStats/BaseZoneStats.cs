@@ -1,11 +1,9 @@
-﻿using Newtonsoft.Json;
-
-namespace TempusApi.Models.PlayerStats
+﻿namespace TempusApi.Models.PlayerStats
 {
     public class BaseZoneStats
     {
-        [JsonProperty(PropertyName = "count")] public int Count { get; set; }
+        [JsonPropertyName("count")] public long Count { get; set; }
 
-        [JsonProperty(PropertyName = "points")] public double Points { get; set; }
+        [JsonPropertyName("points")] public double Points { get; set; }
     }
 }
