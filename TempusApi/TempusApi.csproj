@@ -7,7 +7,7 @@
         <Description>Tempus.xyz API wrapper library</Description>
         <PackageProjectUrl>https://github.com/Hona/TempusApi</PackageProjectUrl>
         <RepositoryUrl>https://github.com/Hona/TempusApi</RepositoryUrl>
-        <Version>3.0.6</Version>
+        <Version>3.0.7</Version>
         <IncludeContentFilesProjectOutputGroup>true</IncludeContentFilesProjectOutputGroup>
     </PropertyGroup>
 

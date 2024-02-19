@@ -20,7 +20,7 @@ public class DemoInfo
 
     [JsonPropertyName("url")] public string Url { get; set; }
 
-    [JsonPropertyName("server_info")] public ServerInfo ServerInfo { get; set; }
+    [JsonPropertyName("server_info")] public ShortServerInfo ServerInfo { get; set; }
 }
 
 public class Demoman
@@ -30,7 +30,7 @@ public class Demoman
     [JsonPropertyName("rank2")] public Rank2 Rank2 { get; set; }
 }
 
-public class ServerInfo
+public class ShortServerInfo
 {
     [JsonPropertyName("id")] public long Id { get; set; }
 
