@@ -1,4 +1,5 @@
 using TempusApi.Enums;
+using TempusApi.Models.Responses;
 
 namespace TempusApi.Models.Activity
 {
@@ -23,5 +24,7 @@ namespace TempusApi.Models.Activity
         [JsonPropertyName("rank")] public int? Rank { get; set; }
 
         [JsonPropertyName("player_info")] public ServerPlayerModel PlayerInfo { get; set; }
+
+        [JsonPropertyName("demo_info")] public DemoInfo DemoInfo { get; set; }
     }
 }
