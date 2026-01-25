@@ -230,4 +230,10 @@ public interface ITempusClient
     Task<ZonedRecordsModel> GetTopZonedTimes(long zoneId, long? limit = null, int? start = null, string sort = null, SortDirection? direction = null, CancellationToken cancellationToken = default);
 
     #endregion
+
+    #region Undocumented
+
+    Task<Dictionary<long, SteamProfile>> GetSteamProfilesAsync(IEnumerable<long> playerIds, CancellationToken cancellationToken = default); 
+
+    #endregion
 }

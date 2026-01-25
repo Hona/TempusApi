@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -176,6 +176,20 @@ public class TempusClient : ITempusClient
         uriBuilder.Query = queryParams.ToString() ?? string.Empty;
         
         return await GetFromJsonAsync<ZonedRecordsModel>(url + uriBuilder.Query, cancellationToken);
+    }
+
+    public async Task<Dictionary<long, SteamProfile>> GetSteamProfilesAsync(IEnumerable<long> playerIds, CancellationToken cancellationToken = default)
+    {
+        var url = "steamavatars";
+        
+        var uriBuilder = new UriBuilder(url);
+        var queryParams = HttpUtility.ParseQueryString(string.Empty);
+        
+        queryParams["steamids"] = string.Join(",", playerIds);
+        
+        uriBuilder.Query = queryParams.ToString() ?? string.Empty;
+        
+        return await GetFromJsonAsync<Dictionary<long, SteamProfile>>(url + uriBuilder.Query, cancellationToken);
     }
 
     private async Task<T> GetFromJsonAsync<T>(string url, CancellationToken cancellationToken)

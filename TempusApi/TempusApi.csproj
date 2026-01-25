@@ -7,7 +7,7 @@
         <Description>Tempus.xyz API wrapper library</Description>
         <PackageProjectUrl>https://github.com/Hona/TempusApi</PackageProjectUrl>
         <RepositoryUrl>https://github.com/Hona/TempusApi</RepositoryUrl>
-        <Version>4.0.1</Version>
+        <Version>4.0.2</Version>
         <PackageReleaseNotes>Includes package README. Breaking: target framework is net10. Added Retry-After handling for 429 responses; TempusClientOptions allows configuring request pacing (default 200ms) and retry count. RecordInfoShort now binds demo_info when available.</PackageReleaseNotes>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <IncludeContentFilesProjectOutputGroup>true</IncludeContentFilesProjectOutputGroup>

@@ -7,5 +7,7 @@
         [JsonPropertyName("zone_info")] public RecordZoneInfo RecordZoneInfo { get; set; }
 
         [JsonPropertyName("results")] public ZonedResults Runs { get; set; }
+        
+        [JsonPropertyName("completion_info")] public CompletionInfo CompletionInfo { get; set; }
     }
 }

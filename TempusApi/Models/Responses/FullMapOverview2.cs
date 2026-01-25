@@ -9,9 +9,9 @@ public class FullMapOverview2
 
     [JsonPropertyName("tier_info")] public TierInfo TierInfo { get; set; }
 
-    [JsonPropertyName("soldier_runs")] public List<SoldierRun> SoldierRuns { get; set; }
+    [JsonPropertyName("soldier_runs")] public List<Run> SoldierRuns { get; set; }
 
-    [JsonPropertyName("demoman_runs")] public List<DemomanRun> DemomanRuns { get; set; }
+    [JsonPropertyName("demoman_runs")] public List<Run> DemomanRuns { get; set; }
 
     [JsonPropertyName("zone_counts")] public ZoneCounts ZoneCounts { get; set; }
 
@@ -46,7 +46,7 @@ public class ZoneInfo
     [JsonPropertyName("type")] public ZoneType Type { get; set; }
 }
 
-public class DemomanRun
+public class Run
 {
     [JsonPropertyName("steamid")] public string Steamid { get; set; }
 
@@ -75,21 +75,6 @@ public class PlayerInfo
     [JsonPropertyName("steamid")] public string Steamid { get; set; }
 
     [JsonPropertyName("id")] public long Id { get; set; }
-
-    [JsonPropertyName("name")] public string Name { get; set; }
-}
-
-public class SoldierRun
-{
-    [JsonPropertyName("steamid")] public string Steamid { get; set; }
-
-    [JsonPropertyName("player_info")] public PlayerInfo PlayerInfo { get; set; }
-
-    [JsonPropertyName("id")] public long Id { get; set; }
-
-    [JsonPropertyName("duration")] public double Duration { get; set; }
-
-    [JsonPropertyName("date")] public double Date { get; set; }
 
     [JsonPropertyName("name")] public string Name { get; set; }
 }
