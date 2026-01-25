@@ -1,13 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <Authors>Luke Parker</Authors>
         <Company />
         <Description>Tempus.xyz API wrapper library</Description>
         <PackageProjectUrl>https://github.com/Hona/TempusApi</PackageProjectUrl>
         <RepositoryUrl>https://github.com/Hona/TempusApi</RepositoryUrl>
-        <Version>3.0.7</Version>
+        <Version>3.0.8</Version>
+        <PackageReleaseNotes>Added client-side rate limiting with Retry-After handling for 429 responses; TempusClientOptions allows configuring minimum request interval and retry count.</PackageReleaseNotes>
         <IncludeContentFilesProjectOutputGroup>true</IncludeContentFilesProjectOutputGroup>
     </PropertyGroup>
 
