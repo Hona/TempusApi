@@ -14,9 +14,13 @@ public class DemoInfo
 {
     [JsonPropertyName("id")] public long Id { get; set; }
 
-    [JsonPropertyName("start_tick")] public ulong StartTick { get; set; }
+    [JsonPropertyName("start_tick")]
+    [JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
+    public long? StartTick { get; set; }
 
-    [JsonPropertyName("end_tick")] public ulong EndTick { get; set; }
+    [JsonPropertyName("end_tick")]
+    [JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
+    public long? EndTick { get; set; }
 
     [JsonPropertyName("url")] public string Url { get; set; }
 
