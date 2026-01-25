@@ -217,7 +217,14 @@ public class TempusClient : ITempusClient
                 await Task.Delay(_nextRequestUtc - now, cancellationToken);
             }
 
-            _nextRequestUtc = DateTimeOffset.UtcNow + _options.MinimumRequestInterval;
+            if (_options.MinimumRequestInterval > TimeSpan.Zero)
+            {
+                var next = DateTimeOffset.UtcNow + _options.MinimumRequestInterval;
+                if (next > _nextRequestUtc)
+                {
+                    _nextRequestUtc = next;
+                }
+            }
         }
         finally
         {
@@ -227,16 +234,21 @@ public class TempusClient : ITempusClient
 
     private async Task ApplyRetryAfterAsync(HttpResponseMessage response, CancellationToken cancellationToken)
     {
-        var retryDelay = GetRetryAfterDelay(response) ?? _options.MinimumRequestInterval;
+        var retryDelay = GetRetryAfterDelay(response);
+        if (retryDelay == null)
+        {
+            return;
+        }
+
         if (retryDelay < TimeSpan.Zero)
         {
-            retryDelay = _options.MinimumRequestInterval;
+            retryDelay = TimeSpan.Zero;
         }
 
         await _rateLimitLock.WaitAsync(cancellationToken);
         try
         {
-            var target = DateTimeOffset.UtcNow + retryDelay;
+            var target = DateTimeOffset.UtcNow + retryDelay.Value;
             if (target > _nextRequestUtc)
             {
                 _nextRequestUtc = target;
