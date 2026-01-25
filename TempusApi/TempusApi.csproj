@@ -7,8 +7,8 @@
         <Description>Tempus.xyz API wrapper library</Description>
         <PackageProjectUrl>https://github.com/Hona/TempusApi</PackageProjectUrl>
         <RepositoryUrl>https://github.com/Hona/TempusApi</RepositoryUrl>
-        <Version>4.0.3</Version>
-        <PackageReleaseNotes>Fix: allow negative or string start_tick/end_tick values in demo_info. Includes package README and 429 Retry-After handling.</PackageReleaseNotes>
+        <Version>4.0.4</Version>
+        <PackageReleaseNotes>Update System.Text.Json to 10.0.2; allow negative or string start_tick/end_tick values in demo_info. Includes package README and 429 Retry-After handling.</PackageReleaseNotes>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <IncludeContentFilesProjectOutputGroup>true</IncludeContentFilesProjectOutputGroup>
     </PropertyGroup>
@@ -18,7 +18,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="System.Text.Json" Version="8.0.0" />
+      <PackageReference Include="System.Text.Json" Version="10.0.2" />
     </ItemGroup>
 
     <ItemGroup>
