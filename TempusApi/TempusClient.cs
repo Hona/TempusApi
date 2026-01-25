@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
@@ -18,10 +19,14 @@ namespace TempusApi;
 public class TempusClient : ITempusClient
 {
     private readonly HttpClient _httpClient;
+    private readonly TempusClientOptions _options;
+    private readonly SemaphoreSlim _rateLimitLock = new(1, 1);
+    private DateTimeOffset _nextRequestUtc = DateTimeOffset.MinValue;
 
-    public TempusClient(HttpClient httpClient)
+    public TempusClient(HttpClient httpClient, TempusClientOptions? options = null)
     {
         _httpClient = httpClient;
+        _options = options ?? new TempusClientOptions();
         
         _httpClient.BaseAddress = new Uri("https://tempus2.xyz/api/v0/");
     }
@@ -35,19 +40,19 @@ public class TempusClient : ITempusClient
     };
     
     public async Task<RecentActivityModel> GetRecentActivityAsync(CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<RecentActivityModel>("activity", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<RecentActivityModel>("activity", cancellationToken);
 
     public async Task<ServerDemoFullOverview> GetDemoInfoAsync(long demoId, CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<ServerDemoFullOverview>($"demos/id/{demoId}/overview", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<ServerDemoFullOverview>($"demos/id/{demoId}/overview", cancellationToken);
 
     public async Task<List<DetailedMapOverviewModel>> GetDetailedMapListAsync(CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<List<DetailedMapOverviewModel>>("maps/detailedList", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<List<DetailedMapOverviewModel>>("maps/detailedList", cancellationToken);
 
     public async Task<MapFullOverviewModel> GetFullMapOverviewAsync(long mapId, CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<MapFullOverviewModel>($"maps/id/{mapId}/fullOverview", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<MapFullOverviewModel>($"maps/id/{mapId}/fullOverview", cancellationToken);
 
     public async Task<FullMapOverview2> GetFullMapOverview2Async(long mapId, CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<FullMapOverview2>($"maps/id/{mapId}/fullOverview2", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<FullMapOverview2>($"maps/id/{mapId}/fullOverview2", cancellationToken);
 
     public async Task<ZonedRecordsModel> GetTopZonedTimes(long mapId, ZoneType zoneType, int zoneIndex = 1,
         int? limit = null, int? start = null,
@@ -65,24 +70,24 @@ public class TempusClient : ITempusClient
 
         uriBuilder.Query = queryParams.ToString() ?? string.Empty;
         
-        return await _httpClient.GetFromJsonAsync<ZonedRecordsModel>(url + uriBuilder.Query, _jsonSerializerOptions, cancellationToken: cancellationToken);
+        return await GetFromJsonAsync<ZonedRecordsModel>(url + uriBuilder.Query, cancellationToken);
     }
 
     public async Task<PersonalRecordsModel> GetPersonalRecordAsync(long mapId, ZoneType zoneType, int zoneIndex, long playerId, Class playerClass,
         CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<PersonalRecordsModel>($"maps/id/{mapId}/zones/typeindex/{zoneType.ToString().ToLower()}/{zoneIndex}/records/player/{playerId}/{playerClass}", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<PersonalRecordsModel>($"maps/id/{mapId}/zones/typeindex/{zoneType.ToString().ToLower()}/{zoneIndex}/records/player/{playerId}/{playerClass}", cancellationToken);
 
     public async Task<List<ShortMapInfoModel>> GetMapListAsync(CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<List<ShortMapInfoModel>>("maps/list", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<List<ShortMapInfoModel>>("maps/list", cancellationToken);
 
     public async Task<MapFullOverviewModel> GetFullMapOverviewAsync(string mapName, CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<MapFullOverviewModel>($"maps/name/{mapName}/fullOverview", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<MapFullOverviewModel>($"maps/name/{mapName}/fullOverview", cancellationToken);
 
     public async Task<FullMapOverview2> GetFullMapOverview2Async(string mapName, CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<FullMapOverview2>($"maps/name/{mapName}/fullOverview2", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<FullMapOverview2>($"maps/name/{mapName}/fullOverview2", cancellationToken);
 
     public async Task<WorldRecordsData> GetWorldRecordsDataAsync(string mapName, CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<WorldRecordsData>($"maps/name/{mapName}/wrs", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<WorldRecordsData>($"maps/name/{mapName}/wrs", cancellationToken);
 
     public async Task<ZonedRecordsModel> GetTopZonedTimes(string mapName, ZoneType zoneType, int zoneIndex = 1, int? limit = null, int? start = null,
         string sort = null, SortDirection? direction = null, CancellationToken cancellationToken = default)
@@ -99,21 +104,21 @@ public class TempusClient : ITempusClient
 
         uriBuilder.Query = queryParams.ToString() ?? string.Empty;
         
-        return await _httpClient.GetFromJsonAsync<ZonedRecordsModel>(url + uriBuilder.Query, _jsonSerializerOptions, cancellationToken: cancellationToken);
+        return await GetFromJsonAsync<ZonedRecordsModel>(url + uriBuilder.Query, cancellationToken);
     }
 
     public async Task<PersonalRecordsModel> GetPersonalRecordAsync(string mapName, ZoneType zoneType, int zoneIndex, string playerId, Class playerClass,
         CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<PersonalRecordsModel>($"maps/name/{mapName}/zones/typeindex/{zoneType.ToString().ToLower()}/{zoneIndex}/records/player/{playerId}/{(int)playerClass}", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<PersonalRecordsModel>($"maps/name/{mapName}/zones/typeindex/{zoneType.ToString().ToLower()}/{zoneIndex}/records/player/{playerId}/{(int)playerClass}", cancellationToken);
 
     public async Task<Rank> GetPlayerRankAsync(long playerId, CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<Rank>($"players/id/{playerId}/rank", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<Rank>($"players/id/{playerId}/rank", cancellationToken);
 
     public async Task<PlayerInfo> GetPlayerInfoAsync(long playerId, CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<PlayerInfo>($"players/id/{playerId}/info", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<PlayerInfo>($"players/id/{playerId}/info", cancellationToken);
 
     public async Task<PlayerStatsModel> GetPlayerStatsAsync(long playerId, CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<PlayerStatsModel>($"players/id/{playerId}/stats", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<PlayerStatsModel>($"players/id/{playerId}/stats", cancellationToken);
 
     public async Task<RanksOverviewModel> GetRanksAsync(Class @class, int? start = null,
         CancellationToken cancellationToken = default)
@@ -127,7 +132,7 @@ public class TempusClient : ITempusClient
 
         uriBuilder.Query = queryParams.ToString() ?? string.Empty;
         
-        return await _httpClient.GetFromJsonAsync<RanksOverviewModel>(url + uriBuilder.Query, _jsonSerializerOptions, cancellationToken: cancellationToken);
+        return await GetFromJsonAsync<RanksOverviewModel>(url + uriBuilder.Query, cancellationToken);
     }
 
     public async Task<RanksOverviewModel> GetTopOverallRanksAsync(int? start = null, CancellationToken cancellationToken = default)
@@ -141,19 +146,19 @@ public class TempusClient : ITempusClient
 
         uriBuilder.Query = queryParams.ToString() ?? string.Empty;
         
-        return await _httpClient.GetFromJsonAsync<RanksOverviewModel>(url + uriBuilder.Query, _jsonSerializerOptions, cancellationToken: cancellationToken);
+        return await GetFromJsonAsync<RanksOverviewModel>(url + uriBuilder.Query, cancellationToken);
     }
 
     public async Task<RunInfoModel> GetRecordAsync(long recordId, CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<RunInfoModel>($"records/id/{recordId}/overview", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<RunInfoModel>($"records/id/{recordId}/overview", cancellationToken);
 
     public async Task<PlayerMapSearchResult> GetSearchResultAsync(string query, CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<PlayerMapSearchResult>($"search/playersAndMaps/{query}", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<PlayerMapSearchResult>($"search/playersAndMaps/{query}", cancellationToken);
 
     public async Task<List<ServerDemoModel>> GetServerDemosAsync(long serverId, CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<List<ServerDemoModel>>($"servers/{serverId}/demos", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<List<ServerDemoModel>>($"servers/{serverId}/demos", cancellationToken);
     public async Task<List<ServerStatusModel>> GetServersStatusesAsync(CancellationToken cancellationToken = default)
-        => await _httpClient.GetFromJsonAsync<List<ServerStatusModel>>("servers/statusList", _jsonSerializerOptions, cancellationToken: cancellationToken);
+        => await GetFromJsonAsync<List<ServerStatusModel>>("servers/statusList", cancellationToken);
 
     public async Task<ZonedRecordsModel> GetTopZonedTimes(long zoneId, long? limit = null, int? start = null, string sort = null,
         SortDirection? direction = null, CancellationToken cancellationToken = default)
@@ -170,6 +175,97 @@ public class TempusClient : ITempusClient
 
         uriBuilder.Query = queryParams.ToString() ?? string.Empty;
         
-        return await _httpClient.GetFromJsonAsync<ZonedRecordsModel>(url + uriBuilder.Query, _jsonSerializerOptions, cancellationToken: cancellationToken);
+        return await GetFromJsonAsync<ZonedRecordsModel>(url + uriBuilder.Query, cancellationToken);
+    }
+
+    private async Task<T> GetFromJsonAsync<T>(string url, CancellationToken cancellationToken)
+    {
+        for (var attempt = 0; attempt <= _options.MaxRetryCount; attempt++)
+        {
+            await WaitForRequestSlotAsync(cancellationToken);
+
+            using var request = new HttpRequestMessage(HttpMethod.Get, url);
+            using var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+
+            if (response.StatusCode == HttpStatusCode.TooManyRequests)
+            {
+                await ApplyRetryAfterAsync(response, cancellationToken);
+                continue;
+            }
+
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadFromJsonAsync<T>(_jsonSerializerOptions, cancellationToken);
+            if (result is null)
+            {
+                throw new InvalidOperationException("Response body was empty.");
+            }
+
+            return result;
+        }
+
+        throw new HttpRequestException("Exceeded retry limit due to rate limiting.");
+    }
+
+    private async Task WaitForRequestSlotAsync(CancellationToken cancellationToken)
+    {
+        await _rateLimitLock.WaitAsync(cancellationToken);
+        try
+        {
+            var now = DateTimeOffset.UtcNow;
+            if (_nextRequestUtc > now)
+            {
+                await Task.Delay(_nextRequestUtc - now, cancellationToken);
+            }
+
+            _nextRequestUtc = DateTimeOffset.UtcNow + _options.MinimumRequestInterval;
+        }
+        finally
+        {
+            _rateLimitLock.Release();
+        }
+    }
+
+    private async Task ApplyRetryAfterAsync(HttpResponseMessage response, CancellationToken cancellationToken)
+    {
+        var retryDelay = GetRetryAfterDelay(response) ?? _options.MinimumRequestInterval;
+        if (retryDelay < TimeSpan.Zero)
+        {
+            retryDelay = _options.MinimumRequestInterval;
+        }
+
+        await _rateLimitLock.WaitAsync(cancellationToken);
+        try
+        {
+            var target = DateTimeOffset.UtcNow + retryDelay;
+            if (target > _nextRequestUtc)
+            {
+                _nextRequestUtc = target;
+            }
+        }
+        finally
+        {
+            _rateLimitLock.Release();
+        }
+    }
+
+    private static TimeSpan? GetRetryAfterDelay(HttpResponseMessage response)
+    {
+        var retryAfter = response.Headers.RetryAfter;
+        if (retryAfter == null)
+        {
+            return null;
+        }
+
+        if (retryAfter.Delta.HasValue)
+        {
+            return retryAfter.Delta.Value;
+        }
+
+        if (retryAfter.Date.HasValue)
+        {
+            return retryAfter.Date.Value - DateTimeOffset.UtcNow;
+        }
+
+        return null;
     }
 }
